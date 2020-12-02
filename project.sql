@@ -1,3 +1,14 @@
+SPOOL project.txt
+SET ECHO ON
+
+/*
+CIS 353-Database Design Project
+Tim Bomers
+Lauren Freeman
+Jacob Lakies
+Lauren Vanderklok (Coordinator)
+*/
+
 CREATE TABLE Books(
     ISBN integer primary key,
     title char(200),
@@ -33,7 +44,7 @@ CREATE TABLE Staff(
         ON DELETE SET NULL
 )
 
-CREATE TABLE Author(
+CREATE TABLE Authors(
     ISBN INTEGER,
     Author CHAR(100),
 
@@ -46,7 +57,7 @@ CREATE TABLE Patrons(
     Address CHAR(500)
 )
 
-CREATE TABLE OverDueFees(
+CREATE TABLE Transactions(
     PatronID INTEGER,
     Barcode INTEGER,
     LoanDate CHAR(10),
@@ -57,3 +68,31 @@ CREATE TABLE OverDueFees(
 
     CONSTRAINT PRIMARY KEY (PatronID, Barcode, LoanDate)
 )
+
+--
+SET FEEDBACK OFF
+
+--insert statements to fill tables ( not the ones to test the integrity constraints)
+
+SET FEEDBACK ON
+COMMIT;
+--
+SELECT * FROM Staff
+SELECT * FROM Locations
+SELECT * FROM Books
+SELECT * FROM CopyOfBook
+SELECT * FROM Authors
+SELECT * FROM Patrons
+SELECT * FROM Transactions
+SELECT * FROM Supplier
+SELECT * FROM Supplies
+--
+-- queries, on of each type listed in project assignment doc
+
+--
+-- insert/delete/update statements to test the integrity constraints (note: you just have to test the 4 ICs that were in the project proposal)
+COMMIT;
+--
+SPOOL OFF
+
+
