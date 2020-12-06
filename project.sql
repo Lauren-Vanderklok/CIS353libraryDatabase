@@ -32,15 +32,18 @@ CREATE TABLE CopyOfBook(
         ON DELETE SET NULL
 );
 
+--isnt working rn??
 CREATE TABLE Staff(
-    StaffID INTEGER PRIMARY KEY,
+    StaffID INTEGER,
     Name CHAR(100),
     MentorID INTEGER,
     BranchID INTEGER,
 
-    CONSTRAINT sIC1 FOREIGN KEY (MentorID) REFERENCES Staff (MentorID)
+    CONSTRAINT sIC1 PRIMARY KEY (StaffID),
+
+    CONSTRAINT sIC2 FOREIGN KEY (MentorID) REFERENCES Staff (MentorID)
         ON DELETE SET NULL,
-    CONSTRAINT sIC2 FOREIGN KEY (BranchID) REFERENCES Locations (BranchID)
+    CONSTRAINT sIC3 FOREIGN KEY (BranchID) REFERENCES Locations (BranchID)
         ON DELETE SET NULL
 );
 
@@ -64,9 +67,21 @@ CREATE TABLE Transactions(
     DueDate CHAR(10),
     ReturnDate CHAR(10),
     DatePaid CHAR(10),
-    FeeAmount FLOAT,
+    FeeAmount DECIMAL(6,2),
 
-    CONSTRAINT PRIMARY KEY (PatronID, Barcode, LoanDate)
+    CONSTRAINT tIC1 PRIMARY KEY (PatronID, Barcode, LoanDate)
+);
+
+CREATE TABLE Supplier(
+    SupplierID INTEGER PRIMARY KEY
+);
+
+CREATE TABLE Supplies(
+    SupplierID INTEGER,
+    ISBN INTEGER,
+    Price DECIMAL(6,2),
+
+    CONSTRAINT suppliesIC1 PRIMARY KEY (SupplierID, ISBN)
 );
 
 --
