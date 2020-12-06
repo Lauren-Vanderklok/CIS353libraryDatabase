@@ -10,9 +10,13 @@ Lauren Vanderklok (Coordinator)
 */
 
 CREATE TABLE Books(
-    ISBN integer primary key,
-    title char(200),
-    genre char(100)
+    ISBN INTEGER,
+    title VARCHAR2(200), 
+    genre VARCHAR2(100),
+    --appearantly the ususal char datatype ive been using 
+    --MUST have that num of chars and this datatype does not have this problem
+
+    CONSTRAINT bIC1 PRIMARY KEY (ISBN)
 );
 
 CREATE TABLE Locations(
@@ -32,7 +36,7 @@ CREATE TABLE CopyOfBook(
         ON DELETE SET NULL
 );
 
---isnt working rn??
+--isnt working rn
 CREATE TABLE Staff(
     StaffID INTEGER,
     Name CHAR(100),
@@ -43,6 +47,7 @@ CREATE TABLE Staff(
 
     CONSTRAINT sIC2 FOREIGN KEY (MentorID) REFERENCES Staff (MentorID)
         ON DELETE SET NULL,
+    
     CONSTRAINT sIC3 FOREIGN KEY (BranchID) REFERENCES Locations (BranchID)
         ON DELETE SET NULL
 );
@@ -51,25 +56,34 @@ CREATE TABLE Authors(
     ISBN INTEGER,
     Author CHAR(100),
 
-    CONSTRAINT aIC1 PRIMARY KEY (ISBN, Author)
+    CONSTRAINT aIC1 PRIMARY KEY (ISBN, Author),
+    CONSTRAINT aIC2 FOREIGN KEY (ISBN) REFERENCES Books (ISBN)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE Patrons(
-    PatronID INTEGER PRIMARY KEY,
+    PatronID INTEGER,
     Name CHAR(100),
-    Address CHAR(500)
+    Address CHAR(500),
+
+    CONSTRAINT pIC1 PRIMARY KEY (PatronID)
 );
 
 CREATE TABLE Transactions(
     PatronID INTEGER,
     Barcode INTEGER,
-    LoanDate CHAR(10),
-    DueDate CHAR(10),
-    ReturnDate CHAR(10),
-    DatePaid CHAR(10),
+    LoanDate DATE,
+    DueDate DATE,
+    ReturnDate DATE,
+    DatePaid DATE,
     FeeAmount DECIMAL(6,2),
 
-    CONSTRAINT tIC1 PRIMARY KEY (PatronID, Barcode, LoanDate)
+    CONSTRAINT tIC1 PRIMARY KEY (PatronID, Barcode, LoanDate),
+    CONSTRAINT tIC2 CHECK (DueDate = LoanDate+14),
+    CONSTRAINT tIC3 FOREIGN KEY (PatronID) REFERENCES Patrons (PatronID)
+        ON DELETE CASCADE,
+    CONSTRAINT tIC4 FOREIGN KEY (Barcode) REFERENCES CopyOfBook (Barcode)
+        ON DELETE SET NULL
 );
 
 CREATE TABLE Supplier(
@@ -81,7 +95,11 @@ CREATE TABLE Supplies(
     ISBN INTEGER,
     Price DECIMAL(6,2),
 
-    CONSTRAINT suppliesIC1 PRIMARY KEY (SupplierID, ISBN)
+    CONSTRAINT suppliesIC1 PRIMARY KEY (SupplierID, ISBN),
+    CONSTRAINT suppliesIC2 FOREIGN KEY (SupplierID) REFERENCES (SupplierID)
+        ON DELETE CASCADE,
+    CONSTRAINT suppliesIC3 FOREIGN KEY (ISBN) REFERENCES Books (ISBN)
+        ON DELETE CASCADE
 );
 
 --
@@ -103,6 +121,8 @@ SELECT * FROM Supplier;
 SELECT * FROM Supplies;
 --
 -- queries, on of each type listed in project assignment doc
+
+
 
 --
 -- insert/delete/update statements to test the integrity constraints (note: you just have to test the 4 ICs that were in the project proposal)
