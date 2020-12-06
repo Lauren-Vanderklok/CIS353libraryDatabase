@@ -122,7 +122,32 @@ SELECT * FROM Supplies;
 --
 -- queries, on of each type listed in project assignment doc
 
+--Join involving at least 4 relations
+-- the titles and author of every book at the location with BranchID = 3
+SELECT L.BranchID, C.ISBN, B.Title, A.Author 
+FROM Locations L, CopyOfBook C, Books B, Authors A
+WHERE L.BranchID = 3 AND 
+    L.BranchID = C.BranchID AND 
+    C.ISBN = B.ISBN AND
+    B.ISBN = A.ISBN;
 
+-- Division query, and query using MINUS
+-- every patron who has checked out every book by author "Charles Dickens" 
+SELECT P.Name, P.PatronID
+FROM Patrons P
+WHERE NOT EXISTS(
+    (SELECT A.ISBN 
+    FROM Authors A
+    WHERE A.Author = "Charles Dickens")
+    MINUS
+    (SELECT A.ISBN
+    FROM Transactions T, CopyOfBook C, Authors A
+    WHERE P.PatronID = T.PatronID AND
+        T.Barcode = C.Barcode AND
+        C.ISBN = A.ISBN AND
+        A.Author = "Charles Dickens"
+    )
+);
 
 --
 -- insert/delete/update statements to test the integrity constraints (note: you just have to test the 4 ICs that were in the project proposal)
