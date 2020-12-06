@@ -40,7 +40,7 @@ CREATE TABLE CopyOfBook(
 CREATE TABLE Staff(
     StaffID INTEGER,
     Name CHAR(100),
-    MentorID INTEGER,
+    MentorID INTEGER UNIQUE,
     BranchID INTEGER,
 
     CONSTRAINT sIC1 PRIMARY KEY (StaffID),
