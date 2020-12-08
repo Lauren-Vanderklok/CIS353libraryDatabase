@@ -13,7 +13,7 @@ CREATE TABLE Books(
     ISBN INTEGER,
     title VARCHAR2(200), 
     genre VARCHAR2(100),
-    --appearantly the ususal char datatype ive been using 
+    --apparantly the usual char datatype I've been using 
     --MUST have that num of chars and this datatype does not have this problem
 
     CONSTRAINT bIC1 PRIMARY KEY (ISBN)
@@ -36,7 +36,6 @@ CREATE TABLE CopyOfBook(
         ON DELETE SET NULL
 );
 
---isnt working rn
 CREATE TABLE Staff(
     StaffID INTEGER,
     Name CHAR(100),
@@ -84,6 +83,7 @@ CREATE TABLE Transactions(
         ON DELETE CASCADE,
     CONSTRAINT tIC4 FOREIGN KEY (Barcode) REFERENCES CopyOfBook (Barcode)
         ON DELETE SET NULL
+    CONSTRAINT tIC5 CHECK (FeeAmount <=100)
 );
 
 CREATE TABLE Supplier(
@@ -138,19 +138,19 @@ FROM Patrons P
 WHERE NOT EXISTS(
     (SELECT A.ISBN 
     FROM Authors A
-    WHERE A.Author = "Charles Dickens")
+    WHERE A.Author = "Paige Turner")
     MINUS
     (SELECT A.ISBN
     FROM Transactions T, CopyOfBook C, Authors A
     WHERE P.PatronID = T.PatronID AND
         T.Barcode = C.Barcode AND
         C.ISBN = A.ISBN AND
-        A.Author = "Charles Dickens"
+        A.Author = "Paige Turner"
     )
 );
 
 --
--- insert/delete/update statements to test the integrity constraints (note: you just have to test the 4 ICs that were in the project proposal)
+-- insert/delete/update statements to test the integrity constraints (note: just test the 4 ICs in the project proposal)
 COMMIT;
 --
 SPOOL OFF
