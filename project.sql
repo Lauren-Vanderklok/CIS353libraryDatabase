@@ -151,6 +151,16 @@ WHERE NOT EXISTS(
 
 --
 -- insert/delete/update statements to test the integrity constraints (note: just test the 4 ICs in the project proposal)
+-- all of the following should be rejected
+-- Test bIC1
+INSERT INTO Patrons VALUES (111, 'Dave Ross', '777 Game St');
+-- Test cIC1
+INSERT INTO Staff VALUES (740, 'Dan Armon', NULL, 4);
+-- Test tIC5
+INSERT INTO Transactions VALUES (111, 00111, 12082016, 12222016, 01062017, NULL, 120.99);
+-- Test tIC2
+INSERT INTO Transactions VALUES (111, 01000, 12082016, 01062017, 01062017, NULL, NULL);
+
 COMMIT;
 --
 SPOOL OFF
