@@ -130,24 +130,38 @@ WHERE L.BranchID = 3 AND
     L.BranchID = C.BranchID AND 
     C.ISBN = B.ISBN AND
     B.ISBN = A.ISBN;
+    
+--Self join
+--IDs and Branches of staff members and their mentors if their mentor works in a different branch
+SELECT S.StaffID, S.BranchID, M.StaffID, M.BranchID
+FROM   Staff S, Staff M
+WHERE  M.StaffID = S.MentorID AND 
+       S.BranchID != M.BranchID
+ORDER BY S.StaffID;
 
 -- Division query, and query using MINUS
--- every patron who has checked out every book by author "Charles Dickens" 
+-- every patron who has checked out every book by author "Dr. Arch" 
 SELECT P.Name, P.PatronID
 FROM Patrons P
 WHERE NOT EXISTS(
     (SELECT A.ISBN 
     FROM Authors A
-    WHERE A.Author = "Paige Turner")
+    WHERE A.Author = "Dr. Arch")
     MINUS
     (SELECT A.ISBN
     FROM Transactions T, CopyOfBook C, Authors A
     WHERE P.PatronID = T.PatronID AND
         T.Barcode = C.Barcode AND
         C.ISBN = A.ISBN AND
-        A.Author = "Paige Turner"
+        A.Author = "Dr. Arch"
     )
 );
+
+--Query with MAX
+--The greatest amount owed by a patron
+SELECT MAX(FeeAmount) AS maxFee
+FROM Transactions;
+
 
 --
 -- insert/delete/update statements to test the integrity constraints (note: just test the 4 ICs in the project proposal)
