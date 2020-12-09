@@ -171,6 +171,25 @@ GROUP BY S.StaffID, S.BranchID
 HAVING COUNT(*) < 3
 ORDER BY S.BranchID;
 
+--Correlated subquery
+-- Find second greatest fee amount
+SELECT e1.Name, e1.FeeAmount
+FROM Transactions e1
+WHERE N-1 = 
+    (SELECT COUNT(DISTINCT FeeAmount)
+     FROM Transactions e2
+    WHERE e2.FeeAmount > e1.FeeAmount)
+ORDER BY e1.Name;
+
+--Noncorrelated subquery
+--Find patrons who haven't owed any fees
+SELECT P.Name, P.PatronID
+FROM Patrons P
+WHERE P.PatronID NOT IN 
+    (SELECT T.PatronID FROM Transactions T
+    WHERE T.FeeAmount NOT NULL)
+ORDER BY P.PatronID;
+
 --Outer join query
 --Name of staff who also are patrons
 SELECT Staff.Name
