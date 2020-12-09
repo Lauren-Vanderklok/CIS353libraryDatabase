@@ -162,6 +162,20 @@ WHERE NOT EXISTS(
 SELECT MAX(FeeAmount) AS maxFee
 FROM Transactions;
 
+--GROUP BY, HAVING, and ORDER BY query
+--BranchID and number of workers for each branch with less than 3 workers
+SELECT S.BranchID, COUNT(*)
+FROM   Locations L, Staff S
+WHERE  S.BranchID = L.BranchID
+GROUP BY S.StaffID, S.BranchID
+HAVING COUNT(*) < 3
+ORDER BY S.BranchID;
+
+--Outer join query
+--Name of staff who also are patrons
+SELECT Staff.Name
+FROM Staff
+    FULL OUTER JOIN Patrons ON Staff.Name = Patrons.Name;
 
 --
 -- insert/delete/update statements to test the integrity constraints (note: just test the 4 ICs in the project proposal)
