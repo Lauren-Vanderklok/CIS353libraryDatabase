@@ -176,6 +176,7 @@ ORDER BY S.BranchID;
 SELECT Staff.Name
 FROM Staff
     FULL OUTER JOIN Patrons ON Staff.Name = Patrons.Name;
+    --may need "WHERE"
 
 --
 -- insert/delete/update statements to test the integrity constraints (note: just test the 4 ICs in the project proposal)
