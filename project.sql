@@ -105,7 +105,139 @@ CREATE TABLE Supplies(
 --
 SET FEEDBACK OFF
 
---insert statements to fill tables ( not the ones to test the integrity constraints)
+INSERT INTO Staff
+VALUES(731, 'Alice Brown', 733, 1);
+INSERT INTO Staff
+VALUES(732, 'Joseph Lydon', NULL, 2);
+INSERT INTO Staff
+VALUES(733, 'Gabi Caldwell', NULL, 1);
+INSERT INTO Staff
+VALUES(734, 'Bella Rossi', NULL, 1);
+INSERT INTO Staff
+VALUES(735, 'Kelsey Carter', NULL, 3);
+INSERT INTO Staff
+VALUES(736, 'Seth Warfield', NULL, 2);
+INSERT INTO Staff
+VALUES(737, 'Ashley Reister', 734, 1);
+INSERT INTO Staff
+VALUES(738, 'Chad Allard', 736, 3);
+INSERT INTO Staff
+VALUES(739, 'Levi Brand', 732, 2);
+
+INSERT INTO Locations
+VALUES(1, 'Woodland', 'Reading Rd');
+INSERT INTO Locations
+VALUES(2, 'Rivertown', 'Learning Ln');
+INSERT INTO Locations
+VALUES(3, 'Farmington', 'Punctuation Pl');
+
+INSERT INTO Books
+VALUES(0000001, 'SQL For Dummies', 'Textbook');
+INSERT INTO Books
+VALUES(0000002, 'SQL For Beginners', 'Textbook');
+INSERT INTO Books
+VALUES(0000003, 'SQL For Students', 'Textbook');
+INSERT INTO Books
+VALUES(0000004, 'SQL For For Advanced Individuals', 'Professional Development');
+INSERT INTO Books
+VALUES(0000005, 'SQL For Experts', 'Professional Development');
+INSERT INTO Books
+VALUES(0000006, 'SQL For World Domination', 'Geopolitical Theory');
+INSERT INTO Books
+VALUES(9999999, 'What To Do Once You Have Conquered The World Through SQL', 'Geopolitical Theory');
+
+INSERT INTO CopyOfBook
+VALUES(00000, '1', 0000002);
+INSERT INTO CopyOfBook
+VALUES(00001, '1', 0000001);
+INSERT INTO CopyOfBook
+VALUES(00010, '1', 0000003);
+INSERT INTO CopyOfBook
+VALUES(00011, '1', 0000004);
+INSERT INTO CopyOfBook
+VALUES(00100, '2', 0000002);
+INSERT INTO CopyOfBook
+VALUES(00101, '2', 0000003);
+INSERT INTO CopyOfBook
+VALUES(00110, '2', 0000005);
+INSERT INTO CopyOfBook
+VALUES(00111, '2', 0000006);
+INSERT INTO CopyOfBook
+VALUES(01000, '2', 9999999);
+INSERT INTO CopyOfBook
+VALUES(01001, '3', 0000001);
+INSERT INTO CopyOfBook
+VALUES(01010, '3', 0000002);
+INSERT INTO CopyOfBook
+VALUES(01011, '3', 0000004);
+INSERT INTO CopyOfBook
+VALUES(01100, '3', 0000006);
+INSERT INTO CopyOfBook
+VALUES(01101, '3', 9999999);
+
+INSERT INTO Authors
+VALUES(0000001,'Paige Turner');
+INSERT INTO Authors
+VALUES(0000002,'Paige Turner');
+INSERT INTO Authors
+VALUES(0000002,'Reed Wells');
+INSERT INTO Authors
+VALUES(0000003,'Paige Turner');
+INSERT INTO Authors
+VALUES(0000001,'Seamore Butts');
+INSERT INTO Authors
+VALUES(0000005,'Dr. Arch');
+INSERT INTO Authors
+VALUES(0000006,'Dr. Arch');
+INSERT INTO Authors
+VALUES(9999999,'Kim Jong-Un');
+
+INSERT INTO Patrons
+VALUES(111, 'Emily Julian', '123 Parkway');
+INSERT INTO Patrons
+VALUES(222, 'Dani Langdon', '3261 60th Ave');
+INSERT INTO Patrons
+VALUES(333, 'Max Comwell', '452 West');
+INSERT INTO Patrons
+VALUES(444, 'Corey Kroll', '987 Sibley');
+INSERT INTO Patrons
+VALUES(555, 'Norman Gates', '231 Pleasant St');
+INSERT INTO Patrons
+VALUES(666, 'Alex DeLeon', '55321 Marina Pl');
+
+INSERT INTO Transactions
+VALUES(111, 00010, 2008-10-03, 2008-10-17, 2008-10-02, NULL, NULL);
+INSERT INTO Transactions
+VALUES(222, 00111, 2010-03-21, 2010-04-05, 2010-03-27, 2010-03-27, 10.00);
+INSERT INTO Transactions
+VALUES(222, 00110, 2012-04-20, 2012-05-04, 2012-06-20, 2012-06-20, 62.00);
+INSERT INTO Transactions
+VALUES(444, 00001, 2016-12-22, 2016-12-22, 2017-01-06, NULL, NULL);
+INSERT INTO Transactions
+VALUES(333, 01010, 2020-05-14, 2020-05-28, 2020-06-17, NULL, 28.00);
+INSERT INTO Transactions
+VALUES(555, 00011, 2020-03-18, 2020-04-01, 2020-04-22, 2020-05-20, 42.00);
+INSERT INTO Transactions
+VALUES(666, 01101, 2020-02-22, 2020-03-07, NULL, NULL, 100.00);
+
+INSERT INTO Supplier
+VALUES(121);
+INSERT INTO Supplier
+VALUES(122);
+INSERT INTO Supplier
+VALUES(123);
+
+INSERT INTO Supplies
+VALUES(121, 0000004, 4.95);
+INSERT INTO Supplies
+VALUES(121, 0000003, 7.95);
+INSERT INTO Supplies
+VALUES(121, 0000002, 25.00);
+INSERT INTO Supplies
+VALUES(121, 0000002, 22.95);
+INSERT INTO Supplies
+VALUES(121, 9999999, 299.99);
+
 
 SET FEEDBACK ON
 COMMIT;
